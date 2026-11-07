@@ -1,1 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goo Tube - Video Gallery</title>
+    <style>
+        /* Base Setup & Pitch Black Background */
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
+        /* Green Goo Dripping Header Effect */
+        .goo-header {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            background-color: #00ff00;
+            box-shadow: 0 0 30px #00ff00;
+            z-index: 10;
+        }
+
+        /* Pure CSS Dripping Slime Shapes */
+        .goo-header::before, .goo-header::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            background: #00ff00;
+            border-radius: 50%;
+        }
+
+        .goo-header::before {
+            width: 80px;
+            height: 80px;
+            left: 10%;
+            box-shadow: 
+                120px 20px 0 10px #00ff00, 
+                280px -10px 0 20px #00ff00, 
+                420px 30px 0 5px #00ff00,
+                600px 10px 0 15px #00ff00,
+                800px 35px 0 8px #00ff00,
+                950px -5px 0 22px #00ff00,
+                1150px 25px 0 12px #00ff00,
+                1300px 5px 0 18px #00ff00;
+            animation: drip 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes drip {
+            0% { transform: translateY(0) scaleY(1); }
+            100% { transform: translateY(15px) scaleY(1.1); }
+        }
+
+        /* Core Content Layout */
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            margin-top: 60px;
+            text-align: center;
+            z-index: 5;
+        }
+
+        h1 {
+            color: #00ff00;
+            font-size: 2.5rem;
+            text-shadow: 0 0 15px #00ff00;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        /* Neon Slime Search Bar */
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            background-color: #111;
+            border: 2px solid #00ff00;
+            border-radius: 50px;
+            color: #fff;
+            outline: none;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 50px;
+        }
+
+        .search-box:focus {
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.6);
+            background-color: #000;
+        }
+
+        /* Responsive Video Gallery Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            padding-bottom: 50px;
+        }
+
+        /* Individual Video Item Elements */
+        .video-card {
+            background-color: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .video-title {
+            font-size: 1.1rem;
+            margin: 0;
+            font-weight: 600;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Green Goo Header Visual Component -->
+    <div class="goo-header"></div>
+
+    <div class="container">
+        <h1>SLIME STREAM Gallery</h1>
+        
+        <!-- Interactive Video Filters Search Box -->
+        <input type="text" id="searchBar" class="search-box" placeholder="Search Ryan Trahan videos..." onkeyup="filterVideos()">
+
+        <!-- Main Video Item Container Layout -->
+        <div class="video-grid" id="videoGrid">
+            
+            <!-- Video Card 1 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://youtube.com" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">How Many Countries Can I Visit in 7 Days?</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 2 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://youtube.com" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">I Tried the Top 10 Things To Do in America</h3>
+                </div>
+            </div>
+
+            <!-- Video Card 3 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://youtube.com" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">I Tested Free Hotel Breakfasts</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript Engine for Search Injections -->
+    <script>
+        function filterVideos() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let cards = document.getElementsByClassName('video-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByClassName('video-title')[0].innerText.toLowerCase();
+                if (title.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
